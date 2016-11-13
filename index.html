@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    'use strict'
+
+    run(2);
+
+    function run(delay) {
+        let prom = new Promise((resolve, reject) => {
+
+            let url = "http://kodaktor.ru/api/req?name=Ilya&sleep=" + delay;
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            console.log("Send");
+            xhr.send();
+
+            xhr.addEventListener('load', function (e, err) {
+                if(err){
+                    console.log(err);
+                    throw err;
+                }
+                console.log('Got some text...' +xhr.responseText );
+                let json = JSON.parse(xhr.responseText);
+                console.log("Parse JSON");
+
+                var [,,date2] = json["date2"].split(':');
+
+                var newDate = date2%10;
+                console.log("New delay is ", newDate);
+                resolve(newDate);
+            });
+
+        });
+        prom
+            .then(result => {
+                run(result);
+            });
+    }
+
+
+
+
+
+</script>
+</body>
+</html>
