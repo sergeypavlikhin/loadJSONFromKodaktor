@@ -29,7 +29,7 @@
                 let json = JSON.parse(xhr.responseText);
                 console.log("Parse JSON");
 
-                var [,,date2] = json["date2"].split(':');
+                var date2 = json["date2"].split(':')[2];
 
                 var newDate = date2%10;
                 console.log("New delay is ", newDate);
