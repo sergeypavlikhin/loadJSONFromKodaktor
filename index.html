@@ -11,7 +11,7 @@
     run(2);
 
     function run(delay) {
-        let prom = new Promise((resolve, reject) => {
+        let prom = new Promise(function(resolve, reject){
 
             let url = "http://kodaktor.ru/api/req?name=Ilya&sleep=" + delay;
 
@@ -38,7 +38,7 @@
 
         });
         prom
-            .then(result => {
+            .then(function(result){
                 run(result);
             });
     }
